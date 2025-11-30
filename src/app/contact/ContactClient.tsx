@@ -1,19 +1,22 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
 import styles from './page.module.css';
 
 export default function Contact() {
-  const searchParams = useSearchParams();
   const [showSuccess, setShowSuccess] = useState(false);
 
   useEffect(() => {
-    if (searchParams.get('success') === 'true') {
-      setShowSuccess(true);
-      setTimeout(() => setShowSuccess(false), 8000);
-      window.history.replaceState({}, '', '/contact');
+    // Check URL for success parameter (client-side only)
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('success') === 'true') {
+        setShowSuccess(true);
+        setTimeout(() => setShowSuccess(false), 8000);
+        // Clean URL
+        window.history.replaceState({}, '', '/contact');
+      }
     }
-  }, [searchParams]);
+  }, []);
 
   return (
     <div className={`container ${styles.contact}`}>
@@ -22,7 +25,6 @@ export default function Contact() {
         Available for commissions and collaborations.
       </p>
 
-      {/* Success Banner - Shows after redirect */}
       {showSuccess && (
         <div className={styles.successBanner}>
           <div className={styles.successContent}>
@@ -50,7 +52,6 @@ export default function Contact() {
           action="https://formsubmit.co/69d8911520eabf186af1cc1a2d915cba"
           method="POST"
         >
-          {/* FormSubmit Configuration */}
           <input type="hidden" name="_subject" value="New booking inquiry from website!" />
           <input type="hidden" name="_captcha" value="false" />
           <input type="hidden" name="_template" value="table" />
@@ -110,15 +111,12 @@ export default function Contact() {
               name="message"
               rows={5}
               className={styles.textarea}
-              placeholder="Tell us about your project..."
+              placeholder="Tell us about your project, event date, location, etc..."
               required
             ></textarea>
           </div>
 
-          <button 
-            type="submit" 
-            className={styles.button}
-          >
+          <button type="submit" className={styles.button}>
             Send Message
           </button>
         </form>
