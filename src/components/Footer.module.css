@@ -1,0 +1,55 @@
+.footer {
+  padding: var(--spacing-md) 0;
+  background-color: var(--background);
+  color: var(--foreground);
+  margin-top: auto;
+  border-top: 1px solid var(--border);
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  padding: 0 var(--spacing-sm); /* Ensure padding on sides */
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: var(--spacing-md);
+    padding-bottom: var(--spacing-md); /* Add bottom padding for mobile */
+  }
+  
+  .socials {
+    justify-content: center;
+    width: 100%; /* Full width for centering */
+    gap: var(--spacing-sm); /* Reduce gap on mobile */
+  }
+
+  .copyright {
+    order: 2; /* Move copyright to bottom */
+    margin-top: var(--spacing-xs);
+  }
+}
+
+.copyright {
+  font-size: 0.8rem;
+}
+
+.socials {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.link {
+  color: var(--foreground);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: opacity 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}

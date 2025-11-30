@@ -1,141 +1,211 @@
-.page {
-  --background: #fafafa;
-  --foreground: #fff;
-
-  --text-primary: #000;
-  --text-secondary: #666;
-
-  --button-primary-hover: #383838;
-  --button-secondary-hover: #f2f2f2;
-  --button-secondary-border: #ebebeb;
-
+.hero {
+  height: 90vh;
+  position: relative;
   display: flex;
-  min-height: 100vh;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-geist-sans);
+  overflow: hidden;
   background-color: var(--background);
 }
 
-.main {
-  display: flex;
-  min-height: 100vh;
-  width: 100%;
-  max-width: 800px;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  background-color: var(--foreground);
-  padding: 120px 60px;
+.heroTextWrapper {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  mix-blend-mode: difference; /* Cool effect over image */
+  color: white; /* Difference mode needs white to invert */
 }
 
+.heroTitle {
+  font-size: 8vw; /* Reduced to fit "TheOkeJacobs" */
+  line-height: 0.9;
+  margin: 0;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.05em;
+  word-break: break-word; /* Ensure it wraps if absolutely necessary */
+}
+
+.outline {
+  -webkit-text-stroke: 2px white;
+  color: transparent;
+}
+
+.heroImageContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  /* Grayscale removed for full color */
+}
+
+.heroImage {
+  object-fit: cover;
+  object-position: top center; /* Ensure head is visible */
+  opacity: 0.9;
+}
+
+/* Intro */
 .intro {
+  padding: var(--spacing-lg) 0;
+  text-align: center;
+}
+
+.introText {
+  font-size: 2.5rem;
+  font-family: var(--font-serif);
+  line-height: 1.3;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.highlight {
+  font-style: italic;
+  border-bottom: 2px solid var(--foreground);
+}
+
+/* Portfolio */
+.portfolioSection {
+  padding-bottom: var(--spacing-xl);
+}
+
+.sectionHeader {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  gap: 24px;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
 }
 
-.intro h1 {
-  max-width: 320px;
-  font-size: 40px;
-  font-weight: 600;
-  line-height: 48px;
-  letter-spacing: -2.4px;
-  text-wrap: balance;
-  color: var(--text-primary);
+.sectionHeader h2 {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin: 0;
 }
 
-.intro p {
-  max-width: 440px;
-  font-size: 18px;
-  line-height: 32px;
-  text-wrap: balance;
-  color: var(--text-secondary);
+.line {
+  flex-grow: 1;
+  height: 1px;
+  background-color: var(--border);
 }
 
-.intro a {
-  font-weight: 500;
-  color: var(--text-primary);
-}
-
-.ctas {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  max-width: 440px;
-  gap: 16px;
-  font-size: 14px;
-}
-
-.ctas a {
+.loadMoreWrapper {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 40px;
-  padding: 0 16px;
-  border-radius: 128px;
-  border: 1px solid transparent;
-  transition: 0.2s;
+  padding: var(--spacing-md) 0;
+}
+
+.loadMoreButton {
+  background: transparent;
+  border: 1px solid var(--foreground);
+  color: var(--foreground);
+  padding: 1rem 3rem;
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
   cursor: pointer;
-  width: fit-content;
-  font-weight: 500;
+  transition: all 0.3s ease;
 }
 
-a.primary {
-  background: var(--text-primary);
+.loadMoreButton:hover {
+  background: var(--foreground);
   color: var(--background);
-  gap: 8px;
 }
 
-a.secondary {
-  border-color: var(--button-secondary-border);
+.loadMoreButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
-/* Enable hover only on non-touch devices */
-@media (hover: hover) and (pointer: fine) {
-  a.primary:hover {
-    background: var(--button-primary-hover);
-    border-color: transparent;
-  }
-
-  a.secondary:hover {
-    background: var(--button-secondary-hover);
-    border-color: transparent;
-  }
+/* About Editorial */
+.aboutSection {
+  padding: var(--spacing-xl) 0;
+  background-color: var(--foreground);
+  color: var(--background);
 }
 
-@media (max-width: 600px) {
-  .main {
-    padding: 48px 24px;
-  }
-
-  .intro {
-    gap: 16px;
-  }
-
-  .intro h1 {
-    font-size: 32px;
-    line-height: 40px;
-    letter-spacing: -1.92px;
-  }
+.aboutGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-xl);
+  align-items: center;
 }
 
-@media (prefers-color-scheme: dark) {
-  .logo {
-    filter: invert();
+.aboutContent {
+  padding-right: var(--spacing-md);
+}
+
+.label {
+  display: block;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: var(--spacing-sm);
+  opacity: 0.7;
+}
+
+.aboutTitle {
+  font-size: 5rem;
+  margin-bottom: var(--spacing-md);
+  line-height: 0.9;
+}
+
+.aboutText {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: var(--spacing-md);
+  opacity: 0.9;
+}
+
+.ctaButton {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background: var(--background);
+  color: var(--foreground);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin-top: var(--spacing-sm);
+  transition: transform 0.3s ease;
+}
+
+.ctaButton:hover {
+  transform: translateY(-5px);
+}
+
+.aboutImageWrapper {
+  position: relative;
+  height: 80vh;
+}
+
+.aboutImage {
+  object-fit: cover;
+  /* Grayscale removed */
+}
+
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: 10vw;
+    word-break: break-word; /* Ensure long words break */
   }
-
-  .page {
-    --background: #000;
-    --foreground: #000;
-
-    --text-primary: #ededed;
-    --text-secondary: #999;
-
-    --button-primary-hover: #ccc;
-    --button-secondary-hover: #1a1a1a;
-    --button-secondary-border: #1a1a1a;
+  .introText {
+    font-size: 1.2rem;
+    padding: 0 var(--spacing-sm);
+  }
+  .aboutGrid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+  .aboutTitle {
+    font-size: 2.5rem;
+  }
+  .aboutContent {
+    padding-right: 0;
+  }
+  .aboutImageWrapper {
+    height: 50vh; /* Increase height for better visibility */
+    width: 100%;
   }
 }

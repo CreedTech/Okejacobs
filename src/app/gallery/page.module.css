@@ -1,0 +1,37 @@
+.gallery {
+  padding-top: var(--spacing-lg);
+  padding-bottom: var(--spacing-xl);
+}
+
+.title {
+  font-size: 3rem;
+  margin-bottom: var(--spacing-md);
+  text-align: center;
+}
+
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  flex-wrap: wrap;
+}
+
+.filter {
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  transition: color 0.3s ease;
+  background: none;
+  border: none;
+  font-family: inherit;
+  padding: 0;
+}
+
+.filter:hover,
+.filter.active {
+  color: var(--foreground);
+  font-weight: 600;
+}

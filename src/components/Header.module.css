@@ -1,0 +1,153 @@
+.header {
+  width: 100%;
+  z-index: 1000;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.headerHome {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* Force full width */
+  background-color: transparent;
+  mix-blend-mode: difference;
+  color: #ffffff;
+  padding: var(--spacing-sm) 0;
+}
+
+.headerDefault {
+  position: relative;
+  width: 100%;
+  background-color: var(--background);
+  color: var(--foreground);
+  border-bottom: 1px solid var(--border);
+  padding: var(--spacing-sm) 0;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: inherit; /* Inherit white from header */
+}
+
+.nav {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.link {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+  position: relative;
+  color: inherit;
+}
+
+.link:hover {
+  color: var(--gray-500);
+}
+
+.menuToggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 101;
+}
+
+.bar {
+  width: 100%;
+  height: 2px;
+  background-color: var(--foreground); /* Force visible color */
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* On home page with transparent header, we need white bars if menu is closed */
+.headerHome .bar {
+  background-color: white;
+}
+
+.headerHome .menuToggle.open .bar {
+  background-color: var(--foreground); /* When open, it's on white bg */
+}
+
+.menuToggle.open .bar:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.menuToggle.open .bar:nth-child(2) {
+  opacity: 0;
+}
+
+/* Pseudo-element for the 3rd bar since we only have 2 spans in JSX but usually need 3 for hamburger, 
+   or just use the 2 spans for an X. Let's stick to 2 bars transforming to X or 3 bars. 
+   The JSX has 2 bars. Let's add a 3rd one in CSS or just use 2. 
+   Wait, the JSX has 2 bars. I'll update CSS to work with 2 bars or update JSX.
+   Actually, standard hamburger has 3. I'll update JSX in next step if needed, but for now let's style the 2 bars to form an X.
+   Bar 1 -> Rotate 45
+   Bar 2 -> Rotate -45
+   But we need a middle one to disappear.
+   Let's just use the 2 bars as top and bottom and move them to center.
+*/
+.menuToggle.open .bar:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+/* Wait, I need 3 bars for a proper hamburger. I'll assume I can add one more span in JSX or use ::after. 
+   Let's use ::after on the button for the 3rd bar? No, simpler to just add a 3rd span in JSX. 
+   I will update the JSX in a separate call if I can't do it here. 
+   Actually, I can just use the 2 bars to make a cross. 
+   Bar 1: rotate 45, translate
+   Bar 2: rotate -45, translate
+*/
+.menuToggle.open .bar:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+.menuToggle.open .bar:nth-child(2) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+@media (max-width: 768px) {
+  .menuToggle {
+    display: flex;
+  }
+
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--background);
+    color: var(--foreground);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 100;
+  }
+
+  .navOpen {
+    transform: translateX(0);
+  }
+
+  .link {
+    font-size: 2rem;
+    margin: var(--spacing-sm) 0;
+  }
+}
