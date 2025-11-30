@@ -233,7 +233,7 @@ export default function Home() {
         </div>
         <div className={styles.heroImageContainer} ref={imageRef}>
           <Image
-            src="/images/dsc_0230.jpg"
+            src="/images/DSC_0230.JPG"
             alt="Hero"
             fill
             priority
@@ -759,7 +759,7 @@ export default function Home() {
           </div>
           <div className={styles.aboutImageWrapper}>
             <Image
-              src="/images/dsc_0230.jpg"
+              src="/images/DSC_0230.JPG"
               alt="TheOkeJacobs"
               fill
               quality={80} // Reduced
