@@ -49,7 +49,7 @@ export default function Contact() {
       <div className={styles.wrapper}>
         <form 
           className={styles.form}
-          action="https://formsubmit.co/69d8911520eabf186af1cc1a2d915cba"
+          action="https://formsubmit.co/okedamilola41@gmail.com"
           method="POST"
         >
           <input type="hidden" name="_subject" value="New booking inquiry from website!" />
