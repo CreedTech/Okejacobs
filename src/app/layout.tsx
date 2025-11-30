@@ -15,8 +15,8 @@ const siteConfig = {
     'TheOkeJacobs | Award-Winning Nigerian Photographer UK | Wedding & Portrait Photography',
   description:
     'Award-winning Nigerian photographer based in UK. Specializing in weddings, portraits, and lifestyle photography across London, Birmingham & Manchester. 10+ years experience capturing Nigerian, African & multicultural celebrations with cultural sensitivity and artistic excellence.',
-  url: 'https://www.okejacobs.online/',
-  ogImage: '/images/DSC_0230.JPG',
+  url: 'https://www.okejacobs.online', // ✅ Removed trailing slash
+  ogImage: 'https://www.okejacobs.online/images/DSC_0230.JPG', // ✅ FULL ABSOLUTE URL
   creator: 'TheOkeJacobs',
   keywords: [
     'Nigerian photographer UK',
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     images: [
       {
-        url: siteConfig.ogImage,
+        url: siteConfig.ogImage, // ✅ Now uses full URL
         width: 1200,
         height: 630,
         alt: 'TheOkeJacobs - Award-Winning Nigerian Photographer UK',
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: siteConfig.title,
     description: siteConfig.description,
-    images: [siteConfig.ogImage],
+    images: [siteConfig.ogImage], // ✅ Full URL
     creator: '@the_okejacobs',
   },
   robots: {
@@ -98,11 +98,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: siteConfig.url,
   },
-  verification: {
-    google: 'your-google-verification-code', // Add after Google Search Console setup
-    // yandex: "your-yandex-verification-code",
-    // bing: "your-bing-verification-code",
-  },
 };
 
 export default function RootLayout({
@@ -113,6 +108,28 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* ✅ Explicit OG Meta Tags for WhatsApp Compatibility */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={siteConfig.url} />
+        <meta property="og:title" content={siteConfig.title} />
+        <meta property="og:description" content={siteConfig.description} />
+        <meta property="og:image" content={siteConfig.ogImage} />
+        <meta property="og:image:secure_url" content={siteConfig.ogImage} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:alt" content="TheOkeJacobs Photography" />
+        <meta property="og:site_name" content={siteConfig.name} />
+        <meta property="og:locale" content="en_GB" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@the_okejacobs" />
+        <meta name="twitter:creator" content="@the_okejacobs" />
+        <meta name="twitter:title" content={siteConfig.title} />
+        <meta name="twitter:description" content={siteConfig.description} />
+        <meta name="twitter:image" content={siteConfig.ogImage} />
+
         {/* Structured Data for Rich Snippets */}
         <script
           type="application/ld+json"
@@ -121,22 +138,16 @@ export default function RootLayout({
               '@context': 'https://schema.org',
               '@type': 'ProfessionalService',
               name: 'TheOkeJacobs Photography',
-              image: `${siteConfig.url}/images/DSC_0230.JPG`,
+              image: siteConfig.ogImage, // ✅ Full URL
               '@id': siteConfig.url,
               url: siteConfig.url,
               telephone: '+44 783 396 7146',
-              // priceRange: "££-£££",
               address: {
                 '@type': 'PostalAddress',
                 addressLocality: 'London',
                 addressRegion: 'England',
                 addressCountry: 'GB',
               },
-              // geo: {
-              //   "@type": "GeoCoordinates",
-              //   latitude: 51.5074,
-              //   longitude: -0.1278,
-              // },
               openingHoursSpecification: {
                 '@type': 'OpeningHoursSpecification',
                 dayOfWeek: [
