@@ -16,7 +16,7 @@ const siteConfig = {
   description:
     'Award-winning Nigerian photographer based in UK. Specializing in weddings, portraits, and lifestyle photography across London, Birmingham & Manchester. 10+ years experience capturing Nigerian, African & multicultural celebrations with cultural sensitivity and artistic excellence.',
   url: 'https://www.okejacobs.online', // ✅ Removed trailing slash
-  ogImage: 'https://www.okejacobs.online/images/DSC_0230.JPG', // ✅ FULL ABSOLUTE URL
+  ogImage: 'https://www.okejacobs.online/og.jpg', // ✅ FULL ABSOLUTE URL
   creator: 'TheOkeJacobs',
   keywords: [
     'Nigerian photographer UK',

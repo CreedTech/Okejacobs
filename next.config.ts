@@ -21,7 +21,7 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
     ],
-    qualities: [75, 100],
+    qualities: [75, 80, 100],
   },
   // Enable image optimization
   compress: true,
