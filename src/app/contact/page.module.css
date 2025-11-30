@@ -90,6 +90,11 @@
 .infoItem a {
   text-decoration: underline;
 }
+.emails {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
 
 @media (max-width: 768px) {
   .wrapper {

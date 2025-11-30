@@ -1,12 +1,13 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from './page.module.css';
 import PhotoGrid, { MediaItem } from '@/components/PhotoGrid';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { allItems } from '@/lib/imageData';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,10 +17,20 @@ export default function Home() {
   const imageRef = useRef(null);
   const servicesRef = useRef(null);
   const testimonialsRef = useRef(null);
+  const ITEMS_PER_PAGE = 6;
 
+  const [displayItems, setDisplayItems] = useState<MediaItem[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+  useEffect(() => {
+    setDisplayItems(allItems.slice(0, ITEMS_PER_PAGE));
+    setHasMore(allItems.length > ITEMS_PER_PAGE);
+  }, []);
+  // GSAP animations
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Hero Parallax
+      // Hero Parallax - optimized
       gsap.to(imageRef.current, {
         yPercent: 30,
         ease: 'none',
@@ -27,7 +38,7 @@ export default function Home() {
           trigger: heroRef.current,
           start: 'top top',
           end: 'bottom top',
-          scrub: true,
+          scrub: 1, // Add smoothing
         },
       });
 
@@ -44,14 +55,10 @@ export default function Home() {
         }
       );
 
-      // Services Cards Animation
+      // Services Cards
       gsap.fromTo(
         '.service-card',
-        {
-          y: 100,
-          opacity: 0,
-          scale: 0.9,
-        },
+        { y: 100, opacity: 0, scale: 0.9 },
         {
           y: 0,
           opacity: 1,
@@ -62,24 +69,18 @@ export default function Home() {
           scrollTrigger: {
             trigger: servicesRef.current,
             start: 'top 80%',
-            end: 'bottom 20%',
             toggleActions: 'play none none reverse',
           },
         }
       );
 
-      // Testimonials Animation
+      // Testimonials
       gsap.fromTo(
         '.testimonial-card',
-        {
-          x: -50,
-          opacity: 0,
-          rotateY: -15,
-        },
+        { x: -50, opacity: 0 },
         {
           x: 0,
           opacity: 1,
-          rotateY: 0,
           duration: 1.2,
           stagger: 0.15,
           ease: 'power3.out',
@@ -94,290 +95,128 @@ export default function Home() {
 
     return () => ctx.revert();
   }, []);
+  const loadMore = useCallback(() => {
+    if (loading || !hasMore) return;
 
-  const allItems: MediaItem[] = [
-    // Wedding Photos
-    {
-      id: 1,
-      src: '/images/wed/DSC_9212.jpg',
-      alt: 'Wedding Ceremony',
-      category: 'Wedding',
-      title: 'Sacred Vows',
-      description: 'Capturing the beautiful moment of commitment.',
-      type: 'image',
-    },
-    {
-      id: 2,
-      src: '/images/wed/DSC_9242.jpg',
-      alt: 'Wedding Celebration',
-      category: 'Wedding',
-      title: 'Joyful Celebration',
-      description: 'The happiness of two families coming together.',
-      type: 'image',
-    },
-    {
-      id: 3,
-      src: '/images/wed/DSC_9266.jpg',
-      alt: 'Wedding Couple',
-      category: 'Wedding',
-      title: 'Eternal Love',
-      description: 'A timeless portrait of the newlyweds.',
-      type: 'image',
-    },
-    {
-      id: 4,
-      src: '/images/wed/IMG_8321 copy.jpg',
-      alt: 'Wedding Details',
-      category: 'Wedding',
-      title: 'Perfect Details',
-      description: 'Every detail tells a story.',
-      type: 'image',
-    },
-    {
-      id: 5,
-      src: '/images/wed/IMG_9847.jpg',
-      alt: 'Wedding Reception',
-      category: 'Wedding',
-      title: 'Grand Reception',
-      description: 'Celebrating love with family and friends.',
-      type: 'image',
-    },
-    {
-      id: 6,
-      src: '/images/wed/JAH_5768.jpg',
-      alt: 'Wedding Moments',
-      category: 'Wedding',
-      title: 'Precious Moments',
-      description: 'Candid moments of pure joy.',
-      type: 'image',
-    },
-    {
-      id: 7,
-      src: '/images/wed/opulence.jpg',
-      alt: 'Luxury Wedding',
-      category: 'Wedding',
-      title: 'Opulent Affair',
-      description: 'Elegance and sophistication.',
-      type: 'image',
-    },
-    {
-      id: 8,
-      src: '/images/wed/valentine8.jpg',
-      alt: 'Romantic Wedding',
-      category: 'Wedding',
-      title: 'Romance in the Air',
-      description: 'Love captured in every frame.',
-      type: 'image',
-    },
-
-    // Portrait Photos
-    {
-      id: 9,
-      src: '/images/portrait/JADE.jpg',
-      alt: 'Portrait Session',
-      category: 'Portrait',
-      title: 'Jade',
-      description: 'A stunning portrait session.',
-      type: 'image',
-    },
-    {
-      id: 10,
-      src: '/images/portrait/mide.jpg',
-      alt: 'Professional Portrait',
-      category: 'Portrait',
-      title: 'Professional Elegance',
-      description: 'Capturing confidence and style.',
-      type: 'image',
-    },
-    {
-      id: 11,
-      src: '/images/portrait/IMG_9176.jpg',
-      alt: 'Creative Portrait',
-      category: 'Portrait',
-      title: 'Creative Expression',
-      description: 'Artistic portrait photography.',
-      type: 'image',
-    },
-    {
-      id: 12,
-      src: '/images/portrait/DSC_0107.jpg',
-      alt: 'Studio Portrait',
-      category: 'Portrait',
-      title: 'Studio Session',
-      description: 'Professional studio photography.',
-      type: 'image',
-    },
-    {
-      id: 13,
-      src: '/images/portrait/IMG_9375.jpg',
-      alt: 'Outdoor Portrait',
-      category: 'Portrait',
-      title: 'Natural Light',
-      description: 'Beautiful outdoor portrait.',
-      type: 'image',
-    },
-    {
-      id: 14,
-      src: '/images/portrait/portrait-maestros.jpg',
-      alt: 'Portrait Maestro',
-      category: 'Portrait',
-      title: 'Portrait Maestro',
-      description: 'Mastery in portrait photography.',
-      type: 'image',
-    },
-    {
-      id: 15,
-      src: '/images/portrait/MNYL7553.jpg',
-      alt: 'Elegant Portrait',
-      category: 'Portrait',
-      title: 'Timeless Elegance',
-      description: 'Classic portrait photography.',
-      type: 'image',
-    },
-    {
-      id: 16,
-      src: '/images/portrait/IMG_4537.jpg',
-      alt: 'Character Portrait',
-      category: 'Portrait',
-      title: 'Character Study',
-      description: 'Capturing personality and character.',
-      type: 'image',
-    },
-
-    // Lifestyle Photos
-    {
-      id: 17,
-      src: '/images/lifestyle/kiki2.jpg',
-      alt: 'Lifestyle Shoot',
-      category: 'Lifestyle',
-      title: 'Lifestyle Moments',
-      description: 'Authentic lifestyle photography.',
-      type: 'image',
-    },
-    {
-      id: 18,
-      src: '/images/lifestyle/IMG_9469-Recovered.jpg',
-      alt: 'Candid Lifestyle',
-      category: 'Lifestyle',
-      title: 'Candid Moments',
-      description: 'Natural and spontaneous.',
-      type: 'image',
-    },
-    {
-      id: 19,
-      src: '/images/lifestyle/magazine1.jpg',
-      alt: 'Editorial Lifestyle',
-      category: 'Lifestyle',
-      title: 'Editorial Style',
-      description: 'Magazine-worthy lifestyle shots.',
-      type: 'image',
-    },
-    {
-      id: 20,
-      src: '/images/lifestyle/mutiple.jpg',
-      alt: 'Group Lifestyle',
-      category: 'Lifestyle',
-      title: 'Together',
-      description: 'Capturing connections and relationships.',
-      type: 'image',
-    },
-    {
-      id: 21,
-      src: '/images/lifestyle/IMG_9556.jpg',
-      alt: 'Urban Lifestyle',
-      category: 'Lifestyle',
-      title: 'Urban Life',
-      description: 'City lifestyle photography.',
-      type: 'image',
-    },
-    {
-      id: 22,
-      src: '/images/lifestyle/2.jpg',
-      alt: 'Lifestyle Portrait',
-      category: 'Lifestyle',
-      title: 'Lifestyle Portrait',
-      description: 'Blending portrait and lifestyle.',
-      type: 'image',
-    },
-
-    // Fashion Photos
-    {
-      id: 23,
-      src: '/images/fashion/DSC_0011.jpg',
-      alt: 'Fashion Editorial',
-      category: 'Fashion',
-      title: 'Fashion Forward',
-      description: 'High-fashion editorial photography.',
-      type: 'image',
-    },
-    {
-      id: 24,
-      src: '/images/fashion/DSC_0036.jpg11.jpg',
-      alt: 'Fashion Shoot',
-      category: 'Fashion',
-      title: 'Style Statement',
-      description: 'Bold fashion photography.',
-      type: 'image',
-    },
-    {
-      id: 25,
-      src: '/images/fashion/DSC_0073.jpg',
-      alt: 'Fashion Model',
-      category: 'Fashion',
-      title: 'Model Portfolio',
-      description: 'Professional fashion modeling.',
-      type: 'image',
-    },
-    {
-      id: 26,
-      src: '/images/fashion/DSC_0077.jpg',
-      alt: 'Fashion Photography',
-      category: 'Fashion',
-      title: 'Haute Couture',
-      description: 'Elegant fashion photography.',
-      type: 'image',
-    },
-    {
-      id: 27,
-      src: '/images/fashion/DSC_0082.jpg',
-      alt: 'Fashion Portrait',
-      category: 'Fashion',
-      title: 'Fashion Portrait',
-      description: 'Stylish and sophisticated.',
-      type: 'image',
-    },
-    {
-      id: 28,
-      src: '/images/fashion/DSC_0004.jpg',
-      alt: 'Fashion Art',
-      category: 'Fashion',
-      title: 'Artistic Fashion',
-      description: 'Where fashion meets art.',
-      type: 'image',
-    },
-  ];
-
-  const [displayItems, setDisplayItems] = useState<MediaItem[]>(
-    allItems.slice(0, 6)
-  );
-  const [loading, setLoading] = useState(false);
-
-  const loadMore = () => {
-    if (loading) return;
     setLoading(true);
 
-    // Simulate network delay
-    setTimeout(() => {
-      const currentLength = displayItems.length;
-      const moreItems = allItems.map((item) => ({
-        ...item,
-        id: item.id + currentLength + Math.random(), // Ensure unique IDs
-      }));
+    // Simulate async loading (replace with real API call if needed)
+    // setTimeout(() => {
+    const nextPage = currentPage + 1;
+    const startIndex = currentPage * ITEMS_PER_PAGE;
+    const endIndex = startIndex + ITEMS_PER_PAGE;
+    const newItems = allItems.slice(startIndex, endIndex);
 
-      setDisplayItems((prev) => [...prev, ...moreItems]);
-      setLoading(false);
-    }, 500);
-  };
+    if (newItems.length > 0) {
+      setDisplayItems((prev) => [...prev, ...newItems]);
+      setCurrentPage(nextPage);
+    }
+
+    // Check if there are more items
+    setHasMore(endIndex < allItems.length);
+    setLoading(false);
+    // }, 300);
+  }, [currentPage, loading, hasMore]);
+
+  // useEffect(() => {
+  //   const ctx = gsap.context(() => {
+  //     // Hero Parallax
+  //     gsap.to(imageRef.current, {
+  //       yPercent: 30,
+  //       ease: 'none',
+  //       scrollTrigger: {
+  //         trigger: heroRef.current,
+  //         start: 'top top',
+  //         end: 'bottom top',
+  //         scrub: true,
+  //       },
+  //     });
+
+  //     // Text Reveal
+  //     gsap.fromTo(
+  //       '.reveal',
+  //       { y: 100, opacity: 0 },
+  //       {
+  //         y: 0,
+  //         opacity: 1,
+  //         duration: 1.5,
+  //         stagger: 0.1,
+  //         ease: 'power4.out',
+  //       }
+  //     );
+
+  //     // Services Cards Animation
+  //     gsap.fromTo(
+  //       '.service-card',
+  //       {
+  //         y: 100,
+  //         opacity: 0,
+  //         scale: 0.9,
+  //       },
+  //       {
+  //         y: 0,
+  //         opacity: 1,
+  //         scale: 1,
+  //         duration: 1,
+  //         stagger: 0.2,
+  //         ease: 'power3.out',
+  //         scrollTrigger: {
+  //           trigger: servicesRef.current,
+  //           start: 'top 80%',
+  //           end: 'bottom 20%',
+  //           toggleActions: 'play none none reverse',
+  //         },
+  //       }
+  //     );
+
+  //     // Testimonials Animation
+  //     gsap.fromTo(
+  //       '.testimonial-card',
+  //       {
+  //         x: -50,
+  //         opacity: 0,
+  //         rotateY: -15,
+  //       },
+  //       {
+  //         x: 0,
+  //         opacity: 1,
+  //         rotateY: 0,
+  //         duration: 1.2,
+  //         stagger: 0.15,
+  //         ease: 'power3.out',
+  //         scrollTrigger: {
+  //           trigger: testimonialsRef.current,
+  //           start: 'top 75%',
+  //           toggleActions: 'play none none reverse',
+  //         },
+  //       }
+  //     );
+  //   }, heroRef);
+
+  //   return () => ctx.revert();
+  // }, []);
+
+  // const [displayItems, setDisplayItems] = useState<MediaItem[]>(
+  //   allItems.slice(0, 6)
+  // );
+  // const [loading, setLoading] = useState(false);
+
+  // const loadMore = () => {
+  //   if (loading) return;
+  //   setLoading(true);
+
+  //   // Simulate network delay
+  //   setTimeout(() => {
+  //     const currentLength = displayItems.length;
+  //     const moreItems = allItems.map((item) => ({
+  //       ...item,
+  //       id: item.id + currentLength + Math.random(), // Ensure unique IDs
+  //     }));
+
+  //     setDisplayItems((prev) => [...prev, ...moreItems]);
+  //     setLoading(false);
+  //   }, 500);
+  // };
 
   return (
     <div className={styles.main}>
@@ -394,13 +233,15 @@ export default function Home() {
         </div>
         <div className={styles.heroImageContainer} ref={imageRef}>
           <Image
-            src="https://scontent-lhr6-1.cdninstagram.com/v/t51.2885-19/504455212_18066428606118494_7922568910431503881_n.jpg?efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMxIn0&_nc_ht=scontent-lhr6-1.cdninstagram.com&_nc_cat=102&_nc_oc=Q6cZ2QFGh4fI2n4KOOLZhZ_0FfKfSdY_TdAWXVrqJCzOrkjNQIjPay8jOjpei-31dtlV6Wu6ERhn4aqAmTahXrc_Qcnk&_nc_ohc=0OJc7vJ4ibIQ7kNvwFWLX-W&_nc_gid=2pci6Z455SW6VffsAIdl8g&edm=APoiHPcBAAAA&ccb=7-5&oh=00_AfiqmuzpuzBqbWNJ3tLcI9W0jh_FcY0QHr8kjHzu4gthzg&oe=692947EF&_nc_sid=22de04"
+            src="/images/dsc_0230.jpg"
             alt="Hero"
             fill
             priority
             quality={100}
             sizes="100vw"
+            placeholder="blur"
             className={styles.heroImage}
+            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCwAB//2Q=="
           />
         </div>
         <div className={styles.heroOverlay}>
@@ -860,15 +701,28 @@ export default function Home() {
             <div className={styles.line}></div>
           </div>
           <PhotoGrid items={displayItems} />
-          <div className={styles.loadMoreWrapper}>
-            <button
-              onClick={loadMore}
-              className={styles.loadMoreButton}
-              disabled={loading}
-            >
-              {loading ? 'Loading...' : 'Load More'}
-            </button>
-          </div>
+          {hasMore && (
+            <div className={styles.loadMoreWrapper}>
+              <button
+                onClick={loadMore}
+                className={styles.loadMoreButton}
+                disabled={loading}
+                aria-label="Load more images"
+              >
+                {loading ? (
+                  <>
+                    <span className={styles.spinner}></span>
+                    Loading...
+                  </>
+                ) : (
+                  'Load More'
+                )}
+              </button>
+              <p className={styles.loadMoreInfo}>
+                Showing {displayItems.length} of {allItems.length} images
+              </p>
+            </div>
+          )}
         </div>
       </section>
 
@@ -905,11 +759,15 @@ export default function Home() {
           </div>
           <div className={styles.aboutImageWrapper}>
             <Image
-              src="https://scontent-lhr6-1.cdninstagram.com/v/t51.2885-19/504455212_18066428606118494_7922568910431503881_n.jpg?efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMxIn0&_nc_ht=scontent-lhr6-1.cdninstagram.com&_nc_cat=102&_nc_oc=Q6cZ2QFGh4fI2n4KOOLZhZ_0FfKfSdY_TdAWXVrqJCzOrkjNQIjPay8jOjpei-31dtlV6Wu6ERhn4aqAmTahXrc_Qcnk&_nc_ohc=0OJc7vJ4ibIQ7kNvwFWLX-W&_nc_gid=2pci6Z455SW6VffsAId8g&edm=APoiHPcBAAAA&ccb=7-5&oh=00_AfiqmuzpuzBqbWNJ3tLcI9W0jh_FcY0QHr8kjHzu4gthzg&oe=692947EF&_nc_sid=22de04"
+              src="/images/dsc_0230.jpg"
               alt="TheOkeJacobs"
               fill
+              quality={80} // Reduced
               className={styles.aboutImage}
               sizes="(max-width: 768px) 100vw, 50vw"
+              loading="lazy" // Lazy load
+              placeholder="blur"
+              blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD..."
             />
           </div>
         </div>

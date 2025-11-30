@@ -26,7 +26,11 @@ export default function Contact() {
         <div className={styles.info}>
           <div className={styles.infoItem}>
             <h3>Email</h3>
+            <div className={styles.emails}>
+
             <a href="mailto:otg@okejacobs.online">otg@okejacobs.online</a>
+            <a href="mailto:okedamilola41@gmail.com">okedamilola41@gmail.com</a>
+            </div>
           </div>
           <div className={styles.infoItem}>
             <h3>Studio</h3>

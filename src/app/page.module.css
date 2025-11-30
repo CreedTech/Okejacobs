@@ -1,5 +1,5 @@
 .hero {
-  height: 90vh;
+  height: 100vh;
   position: relative;
   display: flex;
   align-items: center;
@@ -43,7 +43,7 @@
 
 .heroImage {
   object-fit: cover;
-  object-position: top center; /* Ensure head is visible */
+  object-position: center center; /* Ensure head is visible */
   opacity: 0.9;
 }
 
@@ -93,7 +93,9 @@
 
 .loadMoreWrapper {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   padding: var(--spacing-md) 0;
 }
 
@@ -731,7 +733,12 @@
   left: 0;
   right: 0;
   height: 5px;
-  background: linear-gradient(90deg, var(--foreground) 0%, var(--foreground) 50%, var(--foreground) 100%);
+  background: linear-gradient(
+    90deg,
+    var(--foreground) 0%,
+    var(--foreground) 50%,
+    var(--foreground) 100%
+  );
   background-size: 200% 100%;
   animation: shimmer 3s ease-in-out infinite;
 }
@@ -798,7 +805,11 @@
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--foreground) 0%, var(--foreground) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--foreground) 0%,
+    var(--foreground) 100%
+  );
   display: flex;
   align-items: center;
   justify-content: center;
@@ -850,4 +861,37 @@
   .testimonialsSection {
     padding: 80px 0;
   }
+}
+
+/* page.module.css - Add these */
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #333;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loadMoreInfo {
+  text-align: center;
+  margin-top: 1rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.loadMoreButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }

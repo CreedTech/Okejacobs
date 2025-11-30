@@ -4,16 +4,19 @@ import styles from './page.module.css';
 
 export default function About() {
   return (
-    <div className={`container ${styles.about}`}>
-      <div className={styles.content}>
+    <div className={styles.about}>
+      <div className={`container ${styles.content}`}>
         <div className={styles.imageWrapper}>
-          {/* Using portrait sample as the photographer's photo for now */}
           <Image
-            src="https://scontent-lhr6-1.cdninstagram.com/v/t51.2885-19/504455212_18066428606118494_7922568910431503881_n.jpg?efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMxIn0&_nc_ht=scontent-lhr6-1.cdninstagram.com&_nc_cat=102&_nc_oc=Q6cZ2QFGh4fI2n4KOOLZhZ_0FfKfSdY_TdAWXVrqJCzOrkjNQIjPay8jOjpei-31dtlV6Wu6ERhn4aqAmTahXrc_Qcnk&_nc_ohc=0OJc7vJ4ibIQ7kNvwFWLX-W&_nc_gid=2pci6Z455SW6VffsAIdl8g&edm=APoiHPcBAAAA&ccb=7-5&oh=00_AfiqmuzpuzBqbWNJ3tLcI9W0jh_FcY0QHr8kjHzu4gthzg&oe=692947EF&_nc_sid=22de04"
-            alt="Alexander"
-            width={500}
-            height={600}
+            src="/images/DSC_0230.JPG"
+            alt="TheOkeJacobs - Award-Winning Photographer"
+            fill
             className={styles.image}
+            sizes="(max-width: 768px) 100vw, 50vw"
+            quality={85}
+            priority
+            placeholder="blur"
+            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCwAB//2Q=="
           />
         </div>
         <div className={styles.text}>
@@ -53,8 +56,8 @@ export default function About() {
             <em>
               Every image should tell a story, evoke emotion, and stand the test
               of time.
-            </em>
-            I don't just capture what I see — I capture what you feel. From the
+            </em>{' '}
+            I don't just capture what I see, I capture what you feel. From the
             nervous excitement before the ceremony to the joyful tears during
             the vows, I'm there to document it all with artistry and
             authenticity.

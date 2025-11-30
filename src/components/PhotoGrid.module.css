@@ -1,7 +1,11 @@
+/* PhotoGrid.module.css - Add/Update these for better performance */
+
 .masonryGrid {
   display: flex;
   gap: var(--spacing-sm);
   width: 100%;
+  /* Use GPU acceleration */
+  will-change: transform;
 }
 
 .masonryColumn {
@@ -11,23 +15,35 @@
   gap: var(--spacing-sm);
 }
 
-/* Remove old grid/column styles */
 .item {
-  margin-bottom: 0; /* Handled by gap */
+  margin-bottom: 0;
   opacity: 0;
   animation: fadeIn 0.6s ease forwards;
   width: 100%;
+  /* Prevent layout shifts */
+  contain: layout;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
 }
 
 .imageWrapper {
   position: relative;
   overflow: hidden;
   cursor: pointer;
+  /* Force GPU acceleration */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  /* Prevent repaints during hover */
+  will-change: transform;
 }
 
 .image {
@@ -35,6 +51,9 @@
   height: auto;
   transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   display: block;
+  /* Optimize image rendering */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
 }
 
 .imageWrapper:hover .image {
@@ -54,6 +73,8 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+  /* Use GPU */
+  will-change: opacity;
 }
 
 .imageWrapper:hover .overlay {
@@ -63,6 +84,8 @@
 .overlayContent {
   transform: translateY(10px);
   transition: transform 0.4s ease;
+  /* GPU acceleration */
+  will-change: transform;
 }
 
 .imageWrapper:hover .overlayContent {
@@ -99,9 +122,10 @@
   color: white;
   z-index: 10;
   text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  pointer-events: none;
 }
 
-/* Lightbox */
+/* Lightbox - Optimized */
 .lightbox {
   position: fixed;
   top: 0;
@@ -114,6 +138,9 @@
   align-items: center;
   justify-content: center;
   animation: fadeIn 0.3s ease;
+  /* Optimize backdrop */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .lightboxContent {
@@ -123,12 +150,26 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* GPU acceleration */
+  transform: translateZ(0);
 }
 
 .lightboxImage {
   width: auto;
   height: auto;
   box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.videoWrapper {
+  width: 100%;
+  max-width: 90vw;
+  display: flex;
+  justify-content: center;
+}
+
+.videoPlayer {
+  max-width: 100%;
+  max-height: 80vh;
 }
 
 .info {
@@ -157,6 +198,11 @@
   cursor: pointer;
   line-height: 1;
   padding: 10px;
+  transition: opacity 0.2s;
+}
+
+.closeButton:hover {
+  opacity: 0.6;
 }
 
 .navButton {
@@ -170,29 +216,13 @@
   cursor: pointer;
   padding: 20px;
   transition: opacity 0.3s;
+  /* Prevent text selection */
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .navButton:hover {
   opacity: 0.6;
-}
-
-/* Fake Video Player */
-.fakeVideoPlayer {
-  width: 80vw;
-  height: 50vw;
-  max-height: 80vh;
-  background: black;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: white;
-}
-
-.playButtonLarge {
-  font-size: 4rem;
-  margin-top: 1rem;
-  cursor: pointer;
 }
 
 @media (max-width: 768px) {
@@ -203,5 +233,25 @@
   .navButton {
     font-size: 2rem;
     padding: 10px;
+  }
+  
+  /* Reduce animations on mobile for better performance */
+  .item {
+    animation-duration: 0.4s;
+  }
+  
+  .image {
+    transition: transform 0.3s;
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .item,
+  .image,
+  .overlay,
+  .overlayContent {
+    animation: none !important;
+    transition: none !important;
   }
 }
