@@ -11,45 +11,123 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: var(--spacing-sm);
-  padding: 0 var(--spacing-sm); /* Ensure padding on sides */
-}
-
-@media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    gap: var(--spacing-md);
-    padding-bottom: var(--spacing-md); /* Add bottom padding for mobile */
-  }
-  
-  .socials {
-    justify-content: center;
-    width: 100%; /* Full width for centering */
-    gap: var(--spacing-sm); /* Reduce gap on mobile */
-  }
-
-  .copyright {
-    order: 2; /* Move copyright to bottom */
-    margin-top: var(--spacing-xs);
-  }
+  gap: var(--spacing-md);
+  padding: 0 var(--spacing-md);
 }
 
 .copyright {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
+  color: var(--accent);
 }
 
 .socials {
   display: flex;
   gap: var(--spacing-md);
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 .link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   color: var(--foreground);
   text-decoration: none;
   font-size: 0.9rem;
-  transition: opacity 0.2s ease;
+  transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.icon {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+  display: none;
+}
+
+.linkText {
+  white-space: nowrap;
+}
+
+.link:hover {
+  opacity: 0.7;
+}
+
+.link:hover .icon {
+  transform: scale(1.2);
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .container {
+    gap: var(--spacing-md);
+  }
+
+  .socials {
+    gap: var(--spacing-sm);
+  }
+
+  .link {
+    font-size: 0.85rem;
+  }
+
+  .icon {
+    font-size: 1.1rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .footer {
+    padding: var(--spacing-lg) 0 var(--spacing-md);
+  }
+
+  .container {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: var(--spacing-md);
+  }
+
+  .copyright {
+    order: 2;
+    margin-top: var(--spacing-sm);
+    font-size: 0.85rem;
+  }
+
+  .socials {
+    order: 1;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .linkText {
+    display: none; /* Hide text on mobile, show only icons */
+  }
+
+  .link {
+    padding: 0.75rem;
+  }
+
+  .icon {
+    display: block;
+    font-size: 1.5rem;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .socials {
+    gap: var(--spacing-xs);
+  }
+
+  .link {
+    padding: 0.6rem;
+  }
+
+  .icon {
+    font-size: 1.3rem;
+  }
 }
