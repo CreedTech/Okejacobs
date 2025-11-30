@@ -30,12 +30,15 @@ export default function Contact() {
           <div className={styles.successContent}>
             <span className={styles.successIcon}>✓</span>
             <div>
-              <strong className={styles.successTitle}>Message Sent Successfully!</strong>
+              <strong className={styles.successTitle}>
+                Message Sent Successfully!
+              </strong>
               <p className={styles.successText}>
-                Thank you for reaching out. We'll get back to you within 24 hours.
+                Thank you for reaching out. We'll get back to you within 24
+                hours.
               </p>
             </div>
-            <button 
+            <button
               className={styles.closeButton}
               onClick={() => setShowSuccess(false)}
               aria-label="Close"
@@ -47,21 +50,31 @@ export default function Contact() {
       )}
 
       <div className={styles.wrapper}>
-        <form 
+        <form
           className={styles.form}
-          action="https://formsubmit.co/okedamilola41@gmail.com"
+          action="https://formsubmit.co/69d8911520eabf186af1cc1a2d915cba"
           method="POST"
         >
-          <input type="hidden" name="_subject" value="New booking inquiry from website!" />
+          <input
+            type="hidden"
+            name="_subject"
+            value="New booking inquiry from website!"
+          />
           <input type="hidden" name="_captcha" value="false" />
           <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="_next" value="https://www.okejacobs.online/contact?success=true" />
-          
+          <input
+            type="hidden"
+            name="_next"
+            value="https://www.okejacobs.online/contact?success=true"
+          />
+
           <div className={styles.group}>
-            <label htmlFor="name" className={styles.label}>Name *</label>
-            <input 
-              type="text" 
-              id="name" 
+            <label htmlFor="name" className={styles.label}>
+              Name *
+            </label>
+            <input
+              type="text"
+              id="name"
               name="name"
               className={styles.input}
               required
@@ -69,10 +82,12 @@ export default function Contact() {
           </div>
 
           <div className={styles.group}>
-            <label htmlFor="email" className={styles.label}>Email *</label>
-            <input 
-              type="email" 
-              id="email" 
+            <label htmlFor="email" className={styles.label}>
+              Email *
+            </label>
+            <input
+              type="email"
+              id="email"
               name="email"
               className={styles.input}
               required
@@ -80,10 +95,12 @@ export default function Contact() {
           </div>
 
           <div className={styles.group}>
-            <label htmlFor="phone" className={styles.label}>Phone</label>
-            <input 
-              type="tel" 
-              id="phone" 
+            <label htmlFor="phone" className={styles.label}>
+              Phone
+            </label>
+            <input
+              type="tel"
+              id="phone"
               name="phone"
               className={styles.input}
               placeholder="+44"
@@ -98,14 +115,18 @@ export default function Contact() {
               <option value="">Select a service</option>
               <option value="Wedding Photography">Wedding Photography</option>
               <option value="Portrait Session">Portrait Session</option>
-              <option value="Lifestyle Photography">Lifestyle Photography</option>
+              <option value="Lifestyle Photography">
+                Lifestyle Photography
+              </option>
               <option value="Fashion Photography">Fashion Photography</option>
               <option value="Other">Other</option>
             </select>
           </div>
 
           <div className={styles.group}>
-            <label htmlFor="message" className={styles.label}>Message *</label>
+            <label htmlFor="message" className={styles.label}>
+              Message *
+            </label>
             <textarea
               id="message"
               name="message"
