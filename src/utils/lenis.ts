@@ -1,5 +1,5 @@
-'use client';
+// 'use client';
 
-import { Lenis as ReactLenis } from '@studio-freight/react-lenis';
+// import { Lenis as ReactLenis } from '@studio-freight/react-lenis';
 
-export { ReactLenis };
+// export { ReactLenis };

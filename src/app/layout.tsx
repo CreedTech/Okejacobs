@@ -3,7 +3,7 @@ import { Syne, Inter } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { ReactLenis } from '@/utils/lenis';
+import { SmoothScroll } from '@/utils/smooth-scroll';
 
 const syne = Syne({ subsets: ['latin'], variable: '--font-display' });
 const inter = Inter({ subsets: ['latin'], variable: '--font-body' });
@@ -218,11 +218,11 @@ export default function RootLayout({
         />
       </head>
       <body className={`${syne.variable} ${inter.variable}`}>
-        <ReactLenis root>
+        <SmoothScroll>
           <Header />
           <main>{children}</main>
           <Footer />
-        </ReactLenis>
+        </SmoothScroll>
       </body>
     </html>
   );
