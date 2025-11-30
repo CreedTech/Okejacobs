@@ -12,8 +12,9 @@
   position: relative;
   z-index: 2;
   text-align: center;
-  mix-blend-mode: difference; /* Cool effect over image */
-  color: white; /* Difference mode needs white to invert */
+  mix-blend-mode: difference;
+  color: white;
+  padding: 0 1rem; /* Add horizontal padding */
 }
 
 .heroTitle {
@@ -188,10 +189,38 @@
 }
 
 @media (max-width: 768px) {
-  .heroTitle {
-    font-size: 10vw;
-    word-break: break-word; /* Ensure long words break */
+  .hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column; /* Add this */
+    align-items: center;
+    justify-content: space-between; /* Change to space-between */
+    padding-top: 15vh; /* Reduce top padding */
+    padding-bottom: 0; /* Remove bottom padding */
   }
+
+  .heroTextWrapper {
+    flex-shrink: 0; /* Prevent text from shrinking */
+    margin-bottom: 0; /* Remove auto margin */
+    padding: 0 1rem;
+  }
+
+  .heroTitle {
+    font-size: 11vw; /* Adjust for better fit */
+    word-break: break-word;
+    line-height: 1;
+  }
+
+  .heroSubtitle {
+    font-size: 0.75rem;
+    margin: 0.75rem 0 0.25rem;
+  }
+
+  .heroTagline {
+    font-size: 0.85rem;
+    margin: 0;
+  }
+
   .introText {
     font-size: 1.2rem;
     padding: 0 var(--spacing-sm);
@@ -200,22 +229,56 @@
     grid-template-columns: 1fr;
     gap: var(--spacing-md);
   }
+
   .aboutTitle {
     font-size: 2.5rem;
   }
   .aboutContent {
     padding-right: 0;
   }
+
   .aboutImageWrapper {
-    height: 50vh; /* Increase height for better visibility */
+    height: 50vh;
     width: 100%;
   }
+
   .servicesGrid {
     grid-template-columns: 1fr;
   }
+
+  .heroOverlay {
+    position: relative; /* Change from absolute to relative */
+    width: 100%;
+    padding: 1.5rem 0 1rem;
+    margin-top: auto; /* Push to bottom */
+    flex-shrink: 0; /* Prevent shrinking */
+  }
+
   .heroStats {
-    flex-direction: column;
-    gap: 1rem;
+    flex-direction: row; /* Keep horizontal */
+    flex-wrap: nowrap; /* Prevent wrapping */
+    justify-content: space-around; /* Distribute evenly */
+    gap: 0.5rem;
+    padding: 0 0.5rem;
+  }
+
+  .heroStat {
+    flex: 1;
+    min-width: 0; /* Allow shrinking */
+    text-align: center;
+  }
+
+  .heroStatNumber {
+    font-size: 1.25rem;
+    margin-bottom: 0.25rem;
+    display: block;
+  }
+
+  .heroStatLabel {
+    font-size: 0.65rem;
+    text-align: center;
+    display: block;
+    line-height: 1.2;
   }
   .heroSubtitle {
     font-size: 0.9rem;
@@ -225,6 +288,29 @@
   }
   .testimonialsGrid {
     grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 480px) {
+  .heroStats {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .heroStat {
+    flex-direction: column;
+    width: auto;
+    min-width: 80px;
+  }
+
+  .heroStatNumber {
+    font-size: 1.25rem;
+  }
+
+  .heroStatLabel {
+    font-size: 0.7rem;
+    text-align: center;
   }
 }
 
